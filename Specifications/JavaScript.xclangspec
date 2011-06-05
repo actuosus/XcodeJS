@@ -1,0 +1,115 @@
+(
+	{
+		Identifier = "xcode.lang.javascript.jsdoc";
+		Description = "JSDoc Toolkit JavaScript extention";
+		IncludeInMenu = No;
+		BasedOn = "xcode.lang.javascript";
+		Name = JSDoc;
+	},
+	{
+		Identifier = "xcode.lang.javascript.lexer";
+		Syntax = {
+			IncludeRules = (
+				"xcode.lang.javascript.comment.jsdoc",
+				"xcode.lang.comment",
+				"xcode.lang.comment.singleline",
+				"xcode.lang.string",
+				"xcode.lang.character",
+				"xcode.lang.javascript.identifier",
+				"xcode.lang.number",
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+	{
+		Identifier = "xcode.lang.javascript.comment.jsdoc";
+		Syntax = {
+			Start = "/**";
+			End = "*/";
+			Foldable = YES;
+			IncludeRules = (
+				"xcode.lang.javascript.comment.jsdoc.keyword",
+				"xcode.lang.url",
+				"xcode.lang.url.mail",
+				"xcode.lang.comment.mark",
+			);
+			Type = "xcode.syntax.comment.doc";
+		};
+	},
+	{
+		Identifier = "xcode.lang.javascript.comment.jsdoc.keyword";
+		Syntax = {
+			StartChars = "@";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			Words = (
+				"@augments",
+				"@author",
+				"@argument",
+				"@borrows",
+				"@class",
+				"@cfg",
+				"@constant",
+				"@constructor",
+				"@constructs",
+				"@default",
+				"@deprecated",
+				"@description",
+				"@event",
+				"@example",
+				"@extends",
+				"@field",
+				"@fileOverview",
+				"@function",
+				"@ignore",
+				"@inner",
+				"@lends",
+				"@link",
+				"@memberOf",
+				"@markdown",
+				"@name",
+				"@namespace",
+				"@param",
+				"@private ",
+				"@property ",
+				"@public",
+				"@requires",
+				"@returns",
+				"@see",
+				"@since",
+				"@static",
+				"@throws",
+				"@type",
+				"@version",
+			);
+			Type = "xcode.syntax.comment.doc.keyword";
+		};
+	},
+	{
+		Identifier = "xcode.lang.javascript.parenexpr";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Start = "(";
+			End = ")";
+			Recursive = YES;
+			Foldable = YES;
+			IncludeRules = (
+				"xcode.lang.javascript.function.closure",
+				"xcode.lang.javascript.parenexpr",
+				"xcode.lang.javascript.bracketexpr",
+			);
+		};
+	},
+	{
+		Identifier = "xcode.lang.javascript.bracketexpr";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Start = "[";
+			End = "]";
+			Recursive = YES;
+			Foldable = YES;
+			IncludeRules = (
+				"xcode.lang.javascript.parenexpr",
+			);
+		};
+	},
+)
