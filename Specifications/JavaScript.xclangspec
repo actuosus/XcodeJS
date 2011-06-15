@@ -1,28 +1,377 @@
+// JavaScript
 (
+
+/****************************************************************************/
+// MARK: JavaScript keywords
+/****************************************************************************/
 	{
-		Identifier = "xcode.lang.javascript.jsdoc";
-		Description = "JSDoc Toolkit JavaScript extention";
-		IncludeInMenu = No;
-		BasedOn = "xcode.lang.javascript";
-		Name = JSDoc;
+		Identifier = "xcode.lang.javascript.identifier";
+		Syntax = {
+			StartChars = "$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+			Chars = "$abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				// Reserved words
+				"break",
+				"case",
+				"catch",
+				"class",
+				"const",
+				"continue",
+				"default",
+				"delete",
+				"do",
+				"else",
+				"eval",
+				"export",
+				"extends",
+				"false",
+				"final",
+				"finally",
+				"for",
+				"function",
+				"if",
+				"implements",
+				"import",
+				"in",
+				"instanceof",
+				"interface",
+				"new",
+				"null",
+				"package",
+				"private",
+				"public",
+				"return",
+				"static",
+				"super",
+				"switch",
+				"this",
+				"throw",
+				"true",
+				"try",
+				"typeof",
+				"var",
+				"volatile",
+				"while",
+				"with",
+				
+				// Non-reserved words
+				"attribute",
+				"constructor",
+				"get", // TODO should be moved to attribute.options.identifier
+				"language",
+				"namespace",
+				"set", // TODO should be moved to attribute.options.identifier
+				"use",
+				
+				"undefined",
+			 );
+			Type = "xcode.syntax.keyword";
+			AltType = "xcode.syntax.identifier";	// non-keywords are identifiers
+		};
 	},
+	
+	{
+		Identifier = "xcode.lang.javascript.interestingOperators";
+		Syntax = {
+			Words = (
+				".",
+			 );
+			Type = "xcode.syntax.plain";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.identifier.future";
+		Syntax = {
+			StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				// Future reserved words
+				"abstract",
+				"debugger",
+				"enum",
+				"goto",
+				"native",
+				"protected",
+				"synchronized",
+				"throws",
+				"transient",
+			);
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.identifier.object";
+		Syntax = {
+			StartChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				"Function",
+				"Object",
+				"Array",
+				"String",
+				"RegExp",
+				"Date",
+				"Error",
+				"Number",
+				
+				"ReferenceError"
+			);
+			Type = "xcode.syntax.identifier.class.system";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.identifier.browser.dom";
+		Syntax = {
+			StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				"Image",
+				"Document",
+				"Window",
+				
+				"DOMException",
+				"DOMImplementation",
+				"NodeList",
+				"Node",
+				"NamedNodeMap",
+				"AttrNodeMap",
+				"NotationNodeMap",
+				"EntityNodeMap",
+				"Element",
+				
+				"HTMLElement",
+				"DocumentFragment",
+				"ProcessingInstruction",
+				"CharacterData",
+				"Attr",
+				"Text",
+				"Comment",
+				"CDATASection",
+				"DocumentType",
+				"Notation",
+				"Entity",
+				"EntityReference",
+				
+				"EventException",
+				"Event",
+				"HTMLEvent",
+				"UIEvent",
+				"MouseEvent",
+				"MutationEvent",
+				"EventTarget",
+				
+				"FetchExternalResources",
+				"ProcessExternalResources",
+				"MutationEvents",
+				"QuerySelector",
+			);
+			Type = "xcode.syntax.identifier.class.system";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.identifier.browser.globals";
+		Syntax = {
+			StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+			Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
+			Words = (
+				"window",
+				"document",
+				"localStorage",
+				"sessionStorage",
+				"console"
+			);
+			Type = "xcode.syntax.identifier.variable.system";
+		};
+	},
+
+/****************************************************************************/
+// MARK: JavaScript Syntax Coloring
+/****************************************************************************/
+	{
+		Identifier = "xcode.lang.javascript";
+		Description = "JavaScript Coloring";
+		BasedOn = "xcode.lang.simpleColoring";
+		IncludeInMenu = YES;
+		UsesCLikeIndentation = YES;
+		Name = "JavaScript";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			IncludeRules = (
+				"xcode.lang.javascript.function",
+				"xcode.lang.javascript.function.closure",
+				// "xcode.lang.javascript.block",
+				// "xcode.lang.javascript.bracketexpr",
+				// "xcode.lang.javascript.parenexpr",
+				
+				"xcode.lang.javascript.method",
+				"xcode.lang.javascript.property",
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+
+	{
+		Identifier = "xcode.lang.objc.futurePunctuation";
+		Syntax = {
+			Words = (
+				"#",
+				"->"
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+
+/****************************************************************************/
+// MARK: Lexers
+/****************************************************************************/	
+	// The following rule returns tokens to the other rules
 	{
 		Identifier = "xcode.lang.javascript.lexer";
 		Syntax = {
 			IncludeRules = (
 				"xcode.lang.javascript.comment.jsdoc",
+				
 				"xcode.lang.comment",
 				"xcode.lang.comment.singleline",
+				
 				"xcode.lang.string",
-				"xcode.lang.character",
+				"xcode.lang.string.singlequote",
+				// "xcode.lang.javascript.string.regexp",
+				
+				"xcode.lang.number",
+				
+				"xcode.lang.completionplaceholder",
+				
+				"xcode.lang.javascript.identifier.object",
+				"xcode.lang.javascript.identifier.browser.dom",
+				"xcode.lang.javascript.identifier.browser.globals",
+				
+				"xcode.lang.javascript.identifier",
+				"xcode.lang.javascript.interestingOperators"
+			);
+			Type = "xcode.syntax.plain";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.lexer.toplevel";
+		Syntax = {
+			IncludeRules = (
+				"xcode.lang.javascript.comment.jsdoc",
+				"xcode.lang.comment",
+				"xcode.lang.comment.singleline",
+				"xcode.syntax.completionplaceholder",
+				"xcode.lang.string",
+				"xcode.lang.string.singlequote",
+				
+				// "xcode.lang.javascript.object",
+				// "xcode.lang.javascript.prototype",
+				
 				"xcode.lang.javascript.identifier",
 				"xcode.lang.number",
 			);
 			Type = "xcode.syntax.plain";
 		};
 	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.function.declarator",
+				"xcode.lang.javascript.block",
+			);
+			Type = "xcode.syntax.definition.function";
+			// Type = "xcode.syntax.definition.javascript.function";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function.declarator";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"function",
+				"xcode.lang.javascript.function.name",
+				"xcode.lang.javascript.parenexpr",
+			);
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function.closure";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.function.closure.declarator",
+				"xcode.lang.javascript.block",
+			);
+			Type = "xcode.syntax.definition.function";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function.closure.declarator";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.function.name",
+				"=",
+				"function",
+				"xcode.lang.javascript.parenexpr",
+			);
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function.name";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.identifier",
+				"xcode.lang.javascript.function.name.more*",
+			);
+			Type = "xcode.syntax.name.partial";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.function.name.more";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				".",
+				"xcode.lang.javascript.identifier",
+			);
+			Type = "xcode.syntax.name.partial";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.block";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Start = "{";
+			End = "}";
+			Foldable = YES;
+			Recursive = YES;
+			IncludeRules = (
+				"xcode.lang.javascript.function",
+				"xcode.lang.javascript.function.closure",
+				"xcode.lang.javascript.method",
+				"xcode.lang.javascript.bracketexpr",
+				"xcode.lang.javascript.parenexpr",
+			);
+		};
+	},
+	
 	{
 		Identifier = "xcode.lang.javascript.comment.jsdoc";
+		BasedOn = "xcode.lang.comment";
 		Syntax = {
 			Start = "/**";
 			End = "*/";
@@ -36,6 +385,7 @@
 			Type = "xcode.syntax.comment.doc";
 		};
 	},
+	
 	{
 		Identifier = "xcode.lang.javascript.comment.jsdoc.keyword";
 		Syntax = {
@@ -47,7 +397,6 @@
 				"@argument",
 				"@borrows",
 				"@class",
-				"@cfg",
 				"@constant",
 				"@constructor",
 				"@constructs",
@@ -69,8 +418,8 @@
 				"@name",
 				"@namespace",
 				"@param",
-				"@private ",
-				"@property ",
+				"@private",
+				"@property",
 				"@public",
 				"@requires",
 				"@returns",
@@ -80,6 +429,11 @@
 				"@throws",
 				"@type",
 				"@version",
+				
+				"@cfg",
+				"@return",
+				
+				"@scope"
 			);
 			Type = "xcode.syntax.comment.doc.keyword";
 		};
@@ -94,7 +448,7 @@
 			Foldable = YES;
 			IncludeRules = (
 				"xcode.lang.javascript.function.closure",
-				"xcode.lang.javascript.parenexpr",
+				// "xcode.lang.javascript.parenexpr",
 				"xcode.lang.javascript.bracketexpr",
 			);
 		};
@@ -108,6 +462,155 @@
 			Recursive = YES;
 			Foldable = YES;
 			IncludeRules = (
+				"xcode.lang.javascript.parenexpr",
+			);
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.method";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.function.name",
+				"xcode.lang.javascript.colon",
+				"function",
+				// "xcode.lang.javascript.parenexpr",
+				"(",
+				"xcode.lang.javascript.method.declarator.args?",
+				")",
+				"xcode.lang.javascript.block",
+			);
+			Type = "xcode.syntax.definition.method";
+		};
+	},
+
+	{
+		Identifier = "xcode.lang.javascript.method.declarator";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				// "xcode.lang.javascript.method.name",
+				"xcode.lang.javascript.identifier"
+			);
+			Type = "xcode.syntax.name.partial";
+			// Type = "xcode.syntax.method.declarator";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.method.name";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.identifier",
+			);
+			Type = "xcode.syntax.name.partial";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.method.declarator.args";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.identifier",
+				"xcode.lang.javascript.method.colon?",
+				"xcode.lang.javascript.method.declarator.moreargs*"
+			);
+		};
+	},
+
+	{
+		Identifier = "xcode.lang.javascript.method.declarator.moreargs";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.method.colon",
+				"xcode.lang.javascript.identifier"
+			);
+		};
+	},
+
+	{
+		Identifier = "xcode.lang.javascript.colon";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = ( ":", );
+			Type = "xcode.syntax.name.partial";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.property";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.property.name",
+				"xcode.lang.javascript.colon",
+				"1"
+			);
+			Type = "xcode.syntax.declaration.property";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.property.name";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"xcode.lang.javascript.identifier",
+			);
+			Type = "xcode.syntax.name";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.lexer.attribute";
+		Syntax = {
+			IncludeRules = (
+				"xcode.lang.comment.degenerate",
+				"xcode.lang.comment.headerdoc",
+				"xcode.lang.comment.headerdoc.star",
+				"xcode.lang.comment.headerdoc.singleline.bang",
+				"xcode.lang.comment.headerdoc.singleline.slash",
+				"xcode.lang.comment",
+				"xcode.lang.comment.singleline",
+				"xcode.lang.string",
+				"xcode.lang.character",
+				"xcode.lang.completionplaceholder",
+				"xcode.lang.javascript.identifier",
+				"xcode.lang.number"
+			);
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.string.regexp";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Start = "/";
+			EscapeChar = "\\";
+			End = "/";
+			Type = "xcode.syntax.string.regexp";
+		};
+	},
+	
+	{
+		Identifier = "xcode.lang.javascript.anoperator";
+		Syntax = {
+			Match = (
+				"^[ \t]*(new|delete|typeof|eval|instanceof|in|->\\*|->|,|\\+\\+|--|\\|\\||&&|>>=|<<=|>>|>>>|>>>=|<<|>=|<=|==|!=|===|!===|\\|=|&=|\\^=|%=|/=|\\*=|-=|\\+=|>|<|\\+|-|\\*|/|%|\\^|&|\\||~|!|=|\\[\\]|\\(\\))[ \t]*",
+			);
+		};
+	},
+
+	{
+		Identifier = "xcode.lang.javascript.throwclause";
+		Syntax = {
+			Tokenizer = "xcode.lang.javascript.lexer";
+			Rules = (
+				"throw",
 				"xcode.lang.javascript.parenexpr",
 			);
 		};
